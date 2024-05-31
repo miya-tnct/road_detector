@@ -10,7 +10,7 @@ namespace road_detector
 RoadDetectorNode::RoadDetectorNode()
 : ros::NodeHandle()
 , threshold_(30000)
-, road_error_publisher_(this->advertise<std_msgs::Float64>("road_error", 1, false))
+, deviation_publisher_(this->advertise<std_msgs::Float64>("deviation", 1, false))
 , camera_image_subscriber_(this->subscribe("camera/color/image_raw", 1, &RoadDetectorNode::updateRoad, this))
 {
 }
@@ -45,10 +45,10 @@ try
   const auto bright_x_avg = bright_x_total / bright_count;
   const auto row_centor = rows / 2;
 
-  std_msgs::Float64 road_error_msg;
-  road_error_msg.data = bright_x_avg - row_centor;
+  std_msgs::Float64 deviation_msg;
+  deviation_msg.data = bright_x_avg - row_centor;
 
-  road_error_publisher_.publish(road_error_msg);
+  deviation_publisher_.publish(deviation_msg);
 }
 catch(std::exception e)
 {

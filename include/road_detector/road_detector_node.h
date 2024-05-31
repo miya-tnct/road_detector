@@ -17,7 +17,7 @@ private:
 
   int threshold_;
 
-  ros::Publisher road_error_publisher_;
+  ros::Publisher deviation_publisher_;
   ros::Subscriber camera_image_subscriber_;
 };
 
