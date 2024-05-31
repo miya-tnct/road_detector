@@ -30,7 +30,10 @@ try
     for (int x = 0; x < rows; ++ x)
     {
       const auto & picel = row_ptr[x];
-      const auto brightness = static_cast<int>(picel[0]) * picel[0] + picel[1] * picel[1] + picel[2] * picel[2];
+      const auto brightness
+        = static_cast<int>(picel[0]) * picel[0]
+        + static_cast<int>(picel[1]) * picel[1]
+        + static_cast<int>(picel[2]) * picel[2];
       if (brightness > threshold_)
       {
         bright_x_total += x;
