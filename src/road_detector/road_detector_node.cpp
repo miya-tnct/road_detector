@@ -10,9 +10,9 @@ namespace road_detector
 
 RoadDetectorNode::RoadDetectorNode()
 : ros::NodeHandle()
-, threshold_(80000)
+, threshold_(60000)
 , deviation_publisher_(this->advertise<std_msgs::Float64>("deviation", 1, false))
-, camera_image_subscriber_(this->subscribe("camera/color/image_raw", 1, &RoadDetectorNode::updateRoad, this))
+, camera_image_subscriber_(this->subscribe("usb_cam/image_raw", 1, &RoadDetectorNode::updateRoad, this))
 {
 }
 
@@ -56,6 +56,8 @@ try
   }
 
 
+  cv::imshow("aaa", img_cpy);
+ cv::waitKey(1);
   if (!bright_count) {
     return;
   }
@@ -65,8 +67,6 @@ try
   deviation_msg.data = bright_x_avg - x_centor;
 
   deviation_publisher_.publish(deviation_msg);
-  cv::imshow("aaa", img_cpy);
- cv::waitKey(1);
 }
 catch(std::exception e)
 {
